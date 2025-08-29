@@ -20,8 +20,7 @@ class ScoreCard:
                 total += int(pin)
 
         return total
-    
-    def
+
 
     def symbols_to_numbers(self):
         total = ""
@@ -36,7 +35,7 @@ class ScoreCard:
                 total += str(10 - int(self.pins[i-1]))
             else:
                 total += pin
-        return total
+        return self.get_score(total)
 
 
 
