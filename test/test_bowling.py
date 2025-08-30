@@ -1,4 +1,4 @@
-import pytest
+
 from src.scoreCard import ScoreCard
 
 
@@ -28,7 +28,7 @@ def test_missed_rolls():
     assert 68 == card.get_score()
 
 def test_score_spare():
-    PINS = "5/5/5/5/5/5/5/5/5/5/5"    
+    PINS = "5/5/5/5/5/5/5/5/5/5/5"
     card = ScoreCard(PINS)
     assert 150 == card.get_score()
 
@@ -38,4 +38,3 @@ def test_symbols_to_numbers():
     card = ScoreCard(PINS)
     assert "55101046197320231012" == card.symbols_to_numbers()
 
-def test_
