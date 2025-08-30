@@ -15,7 +15,7 @@ class ScoreCard:
             if pin == "-":
                 continue
             if pin == "/":
-                total += 10 - int(pin)[i+1] + int(pin)[i+1]
+                total += 10 - int(self.pins[i-1])
             else:
                 total += int(pin)
 
@@ -35,9 +35,9 @@ class ScoreCard:
                 total += str(10 - int(self.pins[i-1]))
             else:
                 total += pin
-        return self.get_score(total)
+        return total
 
-
+    
 
 
 
