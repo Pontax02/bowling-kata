@@ -11,33 +11,56 @@ class ScoreCard:
 
 
 
-    def computeScore(self):
-
-        total = 0
+    def translateScore(self):
+        
+        i = 0
+        total = []
         for rolls in self.getFrames():
-            if int(rolls) == Rolls.STRIKE and self.getFrames()[rolls+1]  == Rolls.STRIKE:
 
-                total +=10
+            if rolls == Rolls.NONE:
 
-            elif int(rolls) == Rolls.STRIKE and self.getFrames()[rolls+1] != Rolls.STRIKE:
+                total.append(0)
+                i +=1
 
-                total +=10+ int(self.getFrames()[rolls+1]) + int(self.getFrames()[rolls+2])
+            elif rolls == Rolls.STRIKE and self.getFrames()[i+1]  == Rolls.STRIKE:
 
-            elif int(rolls) == Rolls.SPARE and self.getFrames()[rolls+1] == Rolls.STRIKE:
+                total.append(10)
+                i +=1
 
-                total += (10-int(self.getFrames()[rolls-1])+10)
+            elif rolls == Rolls.STRIKE and self.getFrames()[i+1] != Rolls.STRIKE:
 
-            elif int(rolls) == Rolls.SPARE and self.getFrames()[rolls+1] != Rolls.STRIKE:
+                total.append(10 + (self.getFrames()[i+1]) + (self.getFrames()[i+2]))
+                i +=1
 
-                total += (10-int(self.getFrames()[rolls-1])+ self.getFrames()[rolls+1])
-            
-            elif rolls == Rolls.NONE:
-                continue
+            elif rolls == Rolls.SPARE and self.getFrames()[i+1] == Rolls.STRIKE:
+
+                total.append(10-int(self.getFrames()[i-1])+10)
+                i +=1
+
+            elif rolls == Rolls.SPARE and self.getFrames()[i+1] == Rolls.NONE  :
+
+                total.append(10 -int(self.getFrames()[i-1]))
+                i +=1
+
+            elif rolls == Rolls.SPARE and (self.getFrames()[i+1] != Rolls.STRIKE and self.getFrames()[i-1] == Rolls.NONE):
+
+                total.append((10-0)+ int(self.getFrames()[i+1]))
+                i +=1
+
+            elif rolls == Rolls.SPARE and (self.getFrames()[i+1] != Rolls.STRIKE and self.getFrames()[i-1] != Rolls.NONE):
+
+                total.append((10-int(self.getFrames()[i-1]))+ int(self.getFrames()[i+1]))
+                i +=1
 
             else:
-                total += int(rolls)
-
+                total.append(int(rolls))
+                i +=1
         return total
+    
+    def computeScore(self):
+        
+        score = self.translateScore()
+        return sum(score)
 
     def getFrames(self):
         return self.__frames
